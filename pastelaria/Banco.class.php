@@ -1,0 +1,49 @@
+<?php
+
+class Banco {
+
+	// atributos da classe
+	private $host;
+	private $user;
+	private $pass;
+	private $dbs;
+	private $sql;
+	
+	// conexão com a base de dados
+	function conexao() {
+		$con = mysql_connect($this->host, $this->user, $this->pass) 
+			   or die("Erro: ".mysql_error());
+		return $con;		
+	}
+	
+	// seleção de banco de dados
+	function selecionaDB() {
+		$sel = mysql_select_db($this->dbs) 
+			   or die("Erro: ".mysql_error());
+	}
+	
+	// método para executar consultas sql
+	function executar() {
+		$query = mysql_query($this->sql)
+			     or die("Erro: ".mysql_error());
+		return $query;
+	}
+	
+	// setter dinâmico para atribuição
+	// de valores aos atributos
+	function atribuir($prop, $valor) {
+		$this->$prop = $valor;
+	}
+	
+	// getter dinâmico para recuperação
+	// dos valores dos atributos
+	function retornar($prop) {
+		return $this->$prop;
+	}
+	
+	// fechamento de conexão com base de dados
+	function fechar() {
+		mysql_close();
+	}
+}
+?>
