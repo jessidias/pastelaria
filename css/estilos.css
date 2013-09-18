@@ -1,0 +1,49 @@
+body {
+ margin:0px;
+ background-image:url(../imgs/fundo.jpg);
+
+}
+
+#todos  {
+	width: 1001px; 
+	height: 600px;
+	margin: auto;
+	color:#000000;
+}
+
+.topo {
+width:100%;	
+}
+
+#menuh {
+	height: 95px;
+	width: 1000px;
+	float: right;	
+	margin-bottom:40px;
+}
+
+#texto {
+	width: 998px;
+	float: right;
+	background-color:#003366;
+	font-family:Calibri;font-size:18px;color:#FFF;
+}
+
+#rodape {
+	padding-top:20px;
+	height: 50px;
+	width: 100%;
+	clear:both;
+    padding-bottom:10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	color:#FFFFFF;
+}
+
+#conteudo {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-style:inherit;
+	padding-left:2px;
+	color:#CCCCCC;
+}
+
