@@ -1,8 +1,32 @@
 ﻿<?php
-include "conexao.inc.php";
 session_start();
+include "conexao.inc.php";
 
-$query2 = mysql_query("SELECT a.nome_cliente, b.id_cliente, b.data_pedido, b.valor_total, b.valor_pago, b.id_pedidos FROM clientes AS a INNER JOIN pedidos AS b ON b.id_cliente=a.id_cliente and b.valor_pago='';");
+$hoje=date("d/m/Y");
+$amanha=date('d/m/Y', strtotime("+1 day"));
+
+$query = "SELECT * FROM planejamento WHERE data = '$hoje' ORDER BY id DESC LIMIT 1";
+$res = mysql_query($query) or die ('ERRO: pesquisar planejamento');
+
+$sql_pega_data = mysql_query("SELECT * FROM planejamento ORDER BY id DESC LIMIT 1");
+$linha = mysql_fetch_assoc($sql_pega_data);
+$data = $linha['data'];
+
+$sqlS = "SELECT nome_produto, SUM( quantidade ) AS quant
+FROM pedidos_item
+INNER JOIN pedidos ON pedidos_item.id_pedido = pedidos.id_pedidos
+INNER JOIN produtos ON pedidos_item.id_produto = produtos.id_produto
+WHERE data_entrega LIKE  '%$amanha%'
+GROUP BY produtos.id_produto
+ORDER BY quant DESC";
+$sqlS_res = mysql_query($sqlS) or die ('ERRO: pesquisar produto');
+
+$sqlT = "SELECT nome_produto, SUM( quantidade ) AS total
+FROM pedidos_item
+INNER JOIN pedidos ON pedidos_item.id_pedido = pedidos.id_pedidos
+INNER JOIN produtos ON pedidos_item.id_produto = produtos.id_produto
+WHERE data_entrega LIKE  '%$amanha%'";
+$sqlT_res = mysql_query($sqlT) or die ('ERRO: pesquisar produto');
 
 
 ?>
@@ -29,63 +53,97 @@ $query2 = mysql_query("SELECT a.nome_cliente, b.id_cliente, b.data_pedido, b.val
           <table width="998" border="0">
   <tr>
     <td>
-    <div style="padding-left:290px;padding-top:10px"> 
-    <form action="pesquisa_vendas.php" method="post">
-      <table width="400" border="1">
-        <tr>
-          <td align="right">Quantidade de pastéis do dia:</td>
-          <td><input name="palavra" type="text" value="300" /></td>
-        </tr>
-        <tr>
-          <td align="right">Data:</td>
-          <td><input name="palavra3" type="text" value="06/09/2013" /></td>
-        </tr>
-        <tr>
-          <td align="right">Dia da Semana:</td>
-          <td><input name="palavra2" type="text" value="Quinta-Feira" /></td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td><input type="submit" name="acao2" value="Registrar"/></td>
-        </tr>
-      </table>
-      <br />
-      <br />
-    </form>
+    <div style="padding-left:180px;padding-top:10px"><h2><a href="planejamento.php" style="text-decoration:none;color:#FFF">Cadastrar Planejamento</a> | <a href="lista_planejamento.php" style="text-decoration:none;color:#FFF">Lista de Planejamento</a></h2>
+
+    <?php if ($hoje == $data) { 
+	 echo '<table width="400" border=0>';
+        echo '<tr>';
+          echo '<td align=right>Quantidade de pastéis do dia:</td>';
+          echo '<td align="right">&nbsp;</td>';
+          echo '<td><input name="quant" type="text" disabled="disabled"/></td>';
+        echo '</tr>';
+       echo '<tr>';
+          echo '<td align="right">Data:</td>';
+          echo '<td align="right">&nbsp;</td>';
+        echo  '<td><input name="data" type="text" disabled="disabled"/></td>';
+        echo '</tr>';
+        echo '<tr>';
+         echo '<td align="right">Dia da semana:</td>';
+         echo  '<td align="right">&nbsp;</td>';
+         echo  '<td><input name="dia" type="text" disabled="disabled"/></td>';
+       echo '</tr>';
+        echo '<tr>';
+         echo  '<td>&nbsp;</td>';
+         echo  '<td>&nbsp;</td>';
+         echo  '<td><input type="submit" name="acao2" value="Registrar" disabled="disabled"/>
+		  </td>';
+       echo  '</tr>';
+     echo  '</table>';
+	} else { 
+    echo '<form action="cadastra_planejamento.php" method="post">';
+    echo '<table width="400" border=0>';
+        echo '<tr>';
+          echo '<td align=right>Quantidade de pastéis do dia:</td>';
+          echo '<td align="right">&nbsp;</td>';
+          echo '<td><input name="quant" type="text"/></td>';
+        echo '</tr>';
+       echo '<tr>';
+          echo '<td align="right">Data:</td>';
+          echo '<td align="right">&nbsp;</td>';
+        echo  '<td><input name="data" type="text" /></td>';
+        echo '</tr>';
+        echo '<tr>';
+         echo '<td align="right">Dia da semana:</td>';
+         echo  '<td align="right">&nbsp;</td>';
+         echo  '<td><input name="dia" type="text"/></td>';
+       echo '</tr>';
+        echo '<tr>';
+         echo  '<td>&nbsp;</td>';
+         echo  '<td>&nbsp;</td>';
+         echo  '<td><input type="submit" name="acao2" value="Registrar"/></td>';
+       echo  '</tr>';
+     echo  '</table>';
+  echo  '</form>';
+	} ?>
     </div>
       <br />
-      <table width="600" border='1' align="center">
+    <div style="padding-left:270px">      <?php while($row = mysql_fetch_array($res)) {?>
+O Planejamento para o dia <?php echo $row['data']; ?>, <?php echo $row['dia']; ?>, é de <?php echo $row['quant']; ?> pastéis. </div>
+
+      <table width="500" border='0' align="center">
         <tr>
-          <td colspan="3" align="center"><h2><a href="vendas.php" style="text-decoration:none;color:#FFF">Relatório Diário</a><a href="lista_vendas.php"  style="text-decoration:none;color:#FFF"></a></h2></td>
+          <td colspan="3" align="center"><h2>Relatório Diário</h2>
+O Relatório Diário fornece a soma dos produtos que devem ser entregues no dia <?php echo $amanha; ?>.</td>
         </tr>
+     
         <tr>
-          <td width="170" align="center">Dia 06/09/2013 - Quinta-Feira</td>
+          <td width="170" height="40" align="left"><?php echo $row['data']; ?> - <?php echo $row['dia']; ?></td>
           <td width="158" align="center">Quantidade</td>
           </tr>
-     
-         
-        <tr align="center">
-          <td align="center">Pastel de Carne</td>
-          <td align="center">100</td>
+     <?php } ?>
+      <?php  while($rowS = mysql_fetch_array($sqlS_res)){
+				$nome_produto = $rowS['nome_produto'];
+			     ?>
+        <tr>
+          <td width="182"><?php echo $rowS['nome_produto']; ?></td>
+        <td width="171" align="center" ><?php echo $rowS['quant']; ?></td>
         
-          </tr>
-        <tr align="center">
-          <td align="center">Pastel de Frango</td>
-          <td align="center">100</td>
-          </tr>
-        <tr align="center">
-          <td align="center">Pastel de Queijo</td>
-          <td align="center">50</td>
-          </tr>
-        <tr align="center">
-          <td align="center">Pastel de Palmito</td>
-          <td align="center">50</td>
-          </tr>
-        <tr align="center">
-          <td align="center">Total:</td>
-          <td align="center">300</td>
-          </tr>
-     
+          </tr> <?php } ?>
+
+	 <?php  while($rowT = mysql_fetch_array($sqlT_res)){
+				
+			     ?>
+        <tr>
+          <td>&nbsp;</td>
+          <td align="center" >Total: <?php echo $rowT['total']; ?></td>
+        </tr>
+    <?php /*?>  <?php $subtotal = $quant - $total;?><?php */?>
+        <tr>
+          <td>&nbsp;</td>
+          <td align="center" >Pastéis para serem feitos:<?php /*?><?php echo $subtotal; ?><?php */?></td>
+        </tr>
+    <?php } ?>
+      
        
       </table>
       <br />

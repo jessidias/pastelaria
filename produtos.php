@@ -1,4 +1,5 @@
 ﻿<?php
+error_reporting(E_ERROR | E_PARSE);
 include "conexao.inc.php";
 session_start();
 ?>
@@ -42,6 +43,10 @@ session_start();
     <td colspan="3" align="center"><h2><a href="produtos.php" style="text-decoration:none;color:#FFF">Cadastrar Produto</a> | <a href="lista_produtos.php" style="text-decoration:none;color:#FFF">Ver Lista de Produtos</a></h2></td>
   </tr>
   <form action="cadastra_produto.php" method="post">
+  <tr>
+    <td colspan="3" align="center"><?php if($_GET['msg']=="0"){ echo "<font color='#FFFFFF'>Produto cadastrado com sucesso.</font>";} ?>
+                  <?php if($_GET['msg']=="1"){ echo "<font color='#CC0000'>Este produto já está cadastrado.</font>";} ?></td>
+    </tr>
   <tr>
     <td width="222" align="center">Produto*: </td>
     <td width="268" colspan="2" align="left">

@@ -1,6 +1,23 @@
 ﻿<?php
 session_start();
 include "conexao.inc.php";
+
+$hoje=date("d/m/Y");
+$amanha=date('d/m/Y', strtotime("+1 day"));
+
+$query ="SELECT nome_produto, SUM( quantidade ) AS quant
+FROM pedidos_item
+INNER JOIN pedidos ON pedidos_item.id_pedido = pedidos.id_pedidos
+INNER JOIN produtos ON pedidos_item.id_produto = produtos.id_produto
+INNER JOIN clientes on pedidos.id_cliente = clientes.id_cliente
+WHERE data_entrega LIKE  '%$amanha%'
+GROUP BY produtos.id_produto";
+$res = mysql_query($query) or die ('ERRO: pesquisar planejamento');
+
+
+$prod ="SELECT * from produtos"; 
+$res_prod = mysql_query($prod) or die ('ERRO: pesquisar produtos');
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,101 +45,45 @@ include "conexao.inc.php";
 	<br />
       <br />
       <table width="600" border="0" align="center">
+       <?php while($row = mysql_fetch_array($res)) { ?>
         <tr>
-        <td colspan="2" align="right"><strong>Pedidos para hoje</strong></td>
+        <td align="left"><strong>Pedidos para <?php echo $hoje;?></strong></td>
         <td align="center">&nbsp;</td>
-        <td colspan="2" align="center"><p><strong>Pedidos para amanhã</strong></p></td>
+        <td width="428" colspan="2" align="center"><table width="100%" border="0">
+          <?php while($row2 = mysql_fetch_array($res_prod)) { ?>
+          <tr>
+            <td width="25%" align="center"><?php echo $row2['nome_produto'];?></td>          
+          </tr>
+          <?php } ?>
+        </table></td>
       </tr>
       <tr>
-        <td width="96" align="right">Cliente 1</td>
-        <td width="114" align="right">20 pastéis</td>
-        <td width="22" align="right">&nbsp;</td>
-        <td width="117" align="right">Cliente 1</td>
-        <td width="129" align="right">10 pastéis</td>
+        <td width="153" align="right" valign="top"><table width="100%" border="0">
+          <tr>
+            <td></td>
+          </tr>
+          </table></td>
+        <td width="10" align="right">&nbsp;</td>
+        <td colspan="2" align="right" valign="top"><table width="100%" border="0">
+          <tr>
+            <td align="center"><?php echo $row['quant']; ?></td>
+            
+            </tr>
+          <tr>
+            <td colspan="4"><hr /></td>
+          </tr>
+         
+          
+          <?php } ?>
+          </table></td>
       </tr>
-      <tr>
-        <td align="right">Cliente 2</td>
-        <td align="right">15  pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">Cliente 2</td>
-        <td align="right">25  pastéis</td>
+      </table>
+      <table width="600" border="0" align="center">
+        <tr>
+          <td width="269" height="40">Total: 225</td>
+          <td width="315" align="right">Quantidade de pastéis do dia: 300</td>
         </tr>
-      <tr>
-        <td align="right">Cliente 3</td>
-        <td align="right">10 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">Cliente 3</td>
-        <td align="right">20 pastéis</td>
-        </tr>
-      <tr>
-        <td align="right">Cliente 4</td>
-        <td align="right">50 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">Cliente 4</td>
-        <td align="right">40 pastéis</td>
-        </tr>
-      <tr>
-        <td align="right">Cliente 5</td>
-        <td align="right">30 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">Cliente 5</td>
-        <td align="right">30 pastéis</td>
-        </tr>
-      <tr>
-        <td align="right">Cliente 6</td>
-        <td align="right">45 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">Cliente 6</td>
-        <td align="right">45 pastéis</td>
-        </tr>
-      <tr>
-        <td align="right">Cliente 7</td>
-        <td align="right">30 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        </tr>
-      <tr>
-        <td align="right">Cliente 8</td>
-        <td align="right">10 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        </tr>
-      <tr>
-        <td align="right">Cliente 9</td>
-        <td align="right">25 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        </tr>
-      <tr>
-        <td align="right">Cliente 10</td>
-        <td align="right">35 pastéis</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        </tr>
-      <tr>
-        <td align="right">TOTAL</td>
-        <td align="right">300</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">TOTAL</td>
-        <td align="right">170</td>
-      </tr>
-      <tr>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-        <td align="right">&nbsp;</td>
-      </tr>
-      <tr>
-        <td colspan="2" align="right">Número máximo de pedidos: 300</td>
-        <td align="right">&nbsp;</td>
-        <td colspan="2" align="right">Número máximo de pedidos: </td>
-        </tr>
-  </table></td>
+    </table></td>
   </tr>
 </table>
 

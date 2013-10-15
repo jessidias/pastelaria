@@ -66,7 +66,7 @@ $sqlP_res = mysql_query($sqlP) or die ('ERRO: pesquisar detalhes do pedido');
 
 <table width="50%" border='0' align="center">
 			<tr>
-			  <td colspan="2" align="center"><h2><a href="clientes.php" style="text-decoration:none;color:#FFF">Cadastrar Pedido </a>| <a href="lista_pedidos.php"  style="text-decoration:none;color:#FFF">Ver Lista de Pedidos</a></h2></td>
+			  <td colspan="2" align="center"><h2><a href="pedidos.php" style="text-decoration:none;color:#FFF">Cadastrar Pedido </a>| <a href="lista_pedidos.php"  style="text-decoration:none;color:#FFF">Ver Lista de Pedidos</a></h2></td>
 		    </tr>
 			<tr>
 				<td width="84">Cliente:</td>

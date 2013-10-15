@@ -1,8 +1,5 @@
 <?php
 
-
-	// Restrição para apenas receber 
-	// valores pelo formulário
 	if(isset($_POST["acao"])) {
 	
 	$id_pedidos = $_POST['id_pedidos'];		
@@ -21,7 +18,7 @@ else{
 	
 mysql_query("UPDATE pedidos SET valor_pago = '$valor_pago' WHERE id_pedidos = '$id_pedidos'");
 
-	header("Location: vendas.php");
+	header("Location: vendas.php?msg=0");
 
 }
 } else {

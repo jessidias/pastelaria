@@ -2,7 +2,7 @@
 session_start();
 include "conexao.inc.php";
 
-$query = mysql_query("SELECT * from clientes where status = 'S'");
+$query = mysql_query("SELECT * from clientes");
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -31,7 +31,7 @@ $query = mysql_query("SELECT * from clientes where status = 'S'");
   <div style="padding-left:250px;padding-top:10px">
     <form action="pesquisa_clientes.php" method="post">
       Buscar clientes:
-      <input name="palavra" type="text" value="Digite aqui para pesquisar..." size="45" />
+<input name="palavra" type="text" value="Digite aqui para pesquisar..." size="45" />
       <select name="categoria">
         <option value="nome">Nome</option>
         <option value="cpf">CPF</option>
@@ -41,30 +41,34 @@ $query = mysql_query("SELECT * from clientes where status = 'S'");
     </form>
   </div>
   <br />
-<br />
 
-<table border='1' align="center">
+<table width="700" border='0' align="center">
 			<tr>
-			  <td colspan="6" align="center"><h2><a href="clientes.php" style="text-decoration:none;color:#FFF">Cadastrar Cliente </a>| <a href="lista_clientes.php"  style="text-decoration:none;color:#FFF">Ver Lista de Clientes</a></h2></td>
+	<td align="center" valign="middle">
+    <h2><img src="imgs/icone_cadastro.png" width="40" height="40" /><a href="clientes.php"  style="text-decoration:none;color:#FFF">Cadastrar Cliente</a> | <a href="lista_clientes.php"  style="text-decoration:none;color:#FFF">Lista de Clientes </a>
+    <img src="imgs/icone_lista.png" width="30" height="30"" /></h2></td>
 		    </tr>
+			
+            <tr>
+              <td><table width="100%" border="0">
+                <tr>
+                  <td width="120" align="center">Nome</td>
+                  <td align="center">E-mail</td>
+                  <td width="150" align="center">Telefone Comercial</td>
+                  <td align="center">Endereço</td>
+                </tr>
+                <?php while($dados = mysql_fetch_array($query)) {?>
 			<tr>
-				<td>Nome</td>
-    		    <td>CPF</td>
-                <td>CNPJ</td>
-                <td>E-mail</td>
-				<td>Telefone Comercial</td>
-                <td>Endereço</td>
+				<td align="center"><a href="editar_clientes.php?id_cliente=<?php echo $dados['id_cliente']; ?>" style="text-decoration:none; color:#CCCCCC"><?php echo $dados['nome_cliente']; ?></a></td>
+                <td align="center"><?php echo $dados['email']; ?></td>
+      		    <td align="center"><?php echo $dados['telefone1']; ?></td>
+                <td align="center"><?php echo $dados['endereco']; ?></td>
+   		    </tr>
+	   <?php } ?>
+              </table></td>
             </tr>
 	
 		<?php while($dados = mysql_fetch_array($query)) {?>
-			<tr>
-				<td><a href="editar_clientes.php?id_cliente=<?php echo $dados['id_cliente']; ?>" style="text-decoration:none; color:#CCCCCC"><?php echo $dados['nome_cliente']; ?></a></td>
-                <td><?php echo $dados['cpf']; ?></td>
-				<td><?php echo $dados['cnpj']; ?></td>
-                <td><?php echo $dados['email']; ?></td>
-      		    <td><?php echo $dados['telefone1']; ?></td>
-                <td><?php echo $dados['endereco']; ?></td>
-   		    </tr>
 	   <?php } ?>
 
 	</table>

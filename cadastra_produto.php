@@ -23,12 +23,16 @@ echo"<script>alert ('Favor colocar o valor do produto!')</script>";
 echo"<script>history.go(-1);</script>";
 }
 else{
-	
+$pesquisa = "SELECT * FROM produtos WHERE nome_produto = '$nome_produto'";
+$res = mysql_query($pesquisa) or die(mysql_error());	
+$rowsn = mysql_num_rows($res);
+
+if ($rowsn == '0'){	
 mysql_query("INSERT INTO produtos (nome_produto, valor_unitario) 
 VALUES ('".$nome_produto."','".$valor_unitario."')");
-
-	header("Location: produtos.php");
-
+header("Location: produtos.php?msg=0");
+}
+else {header("Location: produtos.php?msg=1");}
 }
 } else {
 

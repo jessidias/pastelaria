@@ -1,11 +1,11 @@
 ﻿<?php
+error_reporting(E_ERROR | E_PARSE);
 include "conexao.inc.php";
 session_start();
 
-
+$valor_total = '0,00';
 $data_pedido=date("d/m/Y");
 $data_entrega=date('d/m/Y', strtotime("+1 day"));
-
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -53,6 +53,11 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
     <td colspan="2" align="center"><h2><a href="pedidos.php"  style="text-decoration:none;color:#FFF">Cadastrar Pedido</a> | <a href="lista_pedidos.php" style="text-decoration:none;color:#FFF">Ver Lista de Pedidos</a></h2></td>
     </tr>
   <tr>
+    <td height="30" colspan="2" align="center">
+	<?php if($_GET['msg']=="0"){ echo "<font color='#FFFFFF'>Pedido realizado com sucesso.</font>";} ?>
+     </td>
+    </tr>
+  <tr>
     <td width="161">Cliente:</td>
     <td width="335">
       <select name="id_cliente">
@@ -70,7 +75,7 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
             </select></td>
     </tr>
     
-
+<!--<form method="post" action="">-->
   <tr>
    <?php $select = mysql_query("SELECT * FROM produtos");?>
     <td valign="top">Produtos:</td>
@@ -82,7 +87,7 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
 		$id_produto = $row['id_produto'];
 		$nome_produto = $row['nome_produto'];
 		$valor_unitario = $row['valor_unitario'];
-		
+		//$valor_total = $valor_unitario;
 		 ?>
      
       <tr>
@@ -91,6 +96,7 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
           <?php echo $nome_produto; ?></td>
         <td width="159" align="right">Quantidade: 
           <input name="quantidade[<?php echo $id_produto; ?>]" type="text" size="2" />
+         
           </td>
           <td width="173">Valor Unitário:
             <input name="valor_unitario[]" id="valor_unitario[]" type="text" size="4" value="<?php echo $valor_unitario; ?>" /></td>
@@ -104,8 +110,10 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
    
     <tr>
       <td>Valor total:</td>
-      <td><input type="text" name="valor_total" id="valor_total" readonly="readonly" onclick="calc();" />  <input type="submit" name="acao2" value="Calcular total" /></td>
+      <td><input type="text" name="valor_total" id="valor_total" <?php /*?>value="<?php echo $valor_total; ?>"<?php */?> />  
+      <input type="submit" name="acao2" value="Calcular total" /></td>
     </tr>
+   <!-- </form>-->
   <tr>
     <td>Data do pedido:</td>
     <td><input name="data_pedido" type="text" id="data_pedido" value="<?php echo $data_pedido;?>" /></td>

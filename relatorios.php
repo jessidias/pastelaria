@@ -25,54 +25,54 @@ session_start();
           <table width="998" border="0">
   <tr>
     <td><div style="padding-left:250px;padding-top:10px">
-      <table width="550" border="0">
-        <tr>
-          <td width="224">Visualizar relatório por período:</td>
-          <td width="113">de
-            <input name="textfield" type="text" id="textfield2" value="__/__/__" size="5" /></td>
-          <td width="101">a
-            <input name="textfield2" type="text" id="textfield" value="__/__/__" size="5" /></td>
-          <td width="84"><input type="submit" name="button" id="button" value="Pesquisar" /></td>
-          </tr>
-        <tr>
+      <table width="500" border="0">
+        
+        <tr><form method="post" action="rel_periodo.php">
+          <td width="249">Visualizar relatório por período:</td>
+          <td width="146"><input name="periodo1" type="text" id="periodo1" size="5" />
+            a 
+            <input name="periodo2" type="text" id="periodo2" size="5" /></td>
+          <td width="91"><input type="submit" name="acao" value="Pesquisar" /></td>
+           </form></tr>
+         
+        <tr><form method="post" action="rel_mensal.php">
           <td>Visualizar relatório mensal:</td>
-          <td><select name="categoria2">
-            <option value="semanal" selected="selected">Janeiro</option>
-            <option value="mes">Fevereiro</option>
-            <option value="lucro">Março</option>
-             <option value="lucro">Abril</option>
-              <option value="lucro">Maio</option>
-               <option value="lucro">Junho</option>
-                <option value="lucro">Julho</option>
-                 <option value="lucro">Agosto</option>
-                  <option value="lucro">Setembro</option>
-                   <option value="lucro">Outubro</option>
-                    <option value="lucro">Novembro</option>
-                     <option value="lucro">Dezembro</option>
+          <td><select name="mensal">
+            <option value="/01/">Janeiro</option>
+            <option value="/02/">Fevereiro</option>
+            <option value="/03/">Março</option>
+            <option value="/04/">Abril</option>
+            <option value="/05/">Maio</option>
+            <option value="/06/">Junho</option>
+            <option value="/07/">Julho</option>
+            <option value="/08/">Agosto</option>
+            <option value="/09/" selected="selected">Setembro</option>
+            <option value="/10/">Outubro</option>
+            <option value="/11/">Novembro</option>
+            <option value="/12/">Dezembro</option>
           </select></td>
-          <td>&nbsp;</td>
-          <td><input type="submit" name="button2" id="button2" value="Pesquisar" /></td>
+          <td><input type="submit" name="acao2" value="Pesquisar" /></td></form>
           </tr>
         <tr>
           <td>Visualizar relatório anual:</td>
-          <td><select name="categoria3">
-            <option value="semanal" selected="selected">2013</option>
-            <option value="mes">2012</option>
-
-          </select></td>
-          <td>&nbsp;</td>
-          <td><input type="submit" name="button3" id="button3" value="Pesquisar" /></td>
+          <form method="post" action="rel_anual.php"><td>
+          <select name="ano">
+            <option value="2013" selected="selected">2013</option>
+            <option value="2012">2012</option>            
+          </select>
+          </td>
+          <td><input type="submit" name="acao3" value="Pesquisar" /></td>
+          </form>
           </tr>
       </table>
       <br />
-      <strong>Você selecionou a opção Visualizar Relatório anual 2012.</strong>
-      <label for="textfield2"></label>
-          <label for="textfield"></label>
-    </div><br />
+      <strong>Você escolheu a opção &quot;Visualizar Relatório anual 2012&quot;</strong>
+      
+    </div>
       <br />
       <table width="500" border="0" align="center">
         <tr>
-        <td align="left">PRODUTOS MAIS VENDIDOS</td>
+        <td align="left"><strong>Produtos mais vendidos</strong></td>
       </tr>
       <tr>
         <td align="left">Pastel de Carne</td>
@@ -85,9 +85,9 @@ session_start();
       </tr>
   </table>
       <br />
-      <table width="500" border="0" align="center">
+      <!--<table width="500" border="0" align="center">
         <tr>
-          <td align="left"> MESES COM MAIOR NÚMERO DE VENDAS</td>
+          <td align="left"><strong> Mês com maior número de vendas</strong></td>
         </tr>
         <tr>
           <td align="left">Março</td>
@@ -98,23 +98,8 @@ session_start();
         <tr>
           <td align="left">Agosto</td>
         </tr>
-    </table>
-      <br />
-      <table width="500" border="0" align="center">
-        <tr>
-          <td align="left">LUCROS </td>
-        </tr>
-        <tr>
-          <td align="left">Março: R$ 2.500</td>
-        </tr>
-        <tr>
-          <td align="left">Abril: R$ 2.300</td>
-        </tr>
-        <tr>
-          <td align="left">Agosto: R$ 2.100</td>
-        </tr>
-      </table>
-      <p>&nbsp;</p></td>
+    </table>-->
+      <br /></td>
   </tr>
 </table>
 

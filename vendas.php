@@ -1,9 +1,9 @@
 ﻿<?php
+error_reporting(E_ERROR | E_PARSE);
 include "conexao.inc.php";
 session_start();
 
 $query2 = mysql_query("SELECT a.nome_cliente, b.id_cliente, b.data_pedido, b.valor_total, b.valor_pago, b.id_pedidos FROM clientes AS a INNER JOIN pedidos AS b ON b.id_cliente=a.id_cliente and b.valor_pago='' ORDER BY b.id_pedidos DESC;");
-
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -47,6 +47,9 @@ $query2 = mysql_query("SELECT a.nome_cliente, b.id_cliente, b.data_pedido, b.val
           <td colspan="6" align="center"><h2><a href="vendas.php" style="text-decoration:none;color:#FFF">Fechar Pedidos </a>| <a href="lista_vendas.php"  style="text-decoration:none;color:#FFF">Ver Lista de Vendas</a></h2></td>
         </tr>
         <tr>
+          <td height="30" colspan="5" align="center"><?php if($_GET['msg']=="0"){ echo "<font color='#FFFFFF'>Venda realizada com sucesso.</font>";} ?></td>
+          </tr>
+        <tr>
           <td align="left">Cliente</td>
           <td align="left">Data do pedido</td>
           <td align="left">Valor Total </td>
@@ -56,6 +59,7 @@ $query2 = mysql_query("SELECT a.nome_cliente, b.id_cliente, b.data_pedido, b.val
         </tr>
         <?php while($dados = mysql_fetch_array($query2)) {?>
          
+        
         <tr>
           <td><?php echo $dados['nome_cliente']; ?></td>
           <td><?php echo $dados['data_pedido']; ?></td>

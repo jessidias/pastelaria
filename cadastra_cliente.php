@@ -1,8 +1,5 @@
 <?php
 
-
-// Restrição para apenas receber 
-	// valores pelo formulário
 	if(isset($_POST["acao"])) {
 		
 	$nome_cliente = $_POST['nome_cliente'];
@@ -38,18 +35,19 @@ elseif (empty($_POST['endereco']) ) {
 echo"<script>alert ('Favor colocar seu endereço!')</script>"; 
 echo"<script>history.go(-1);</script>";
 }
-
 else {
-echo"<script>alert ('Cliente cadastrado com sucesso!')</script>"; 
+$pesquisa = "SELECT * FROM clientes WHERE nome_cliente = '$nome_cliente'";
+$res = mysql_query($pesquisa) or die(mysql_error());	
+$rowsn = mysql_num_rows($res);
 
+if ($rowsn == '0'){
 mysql_query("INSERT INTO clientes (nome_cliente, cpf, cnpj, email, telefone1, telefone2, telefone3, endereco, numero, bairro, complemento) 
 	VALUES ('".$nome_cliente."', '".$cpf."', '".$cnpj."', '".$email."', '".$telefone1."', '".$telefone2."', '".$telefone3."', '".$endereco."', '".$numero."', '".$bairro."', '".$complemento."')");
+header("Location: clientes.php?msg=0");
+} 
+else {header("Location: clientes.php?msg=1"); }
 
 
-	
-
-	header("Location: clientes.php");
-	
 }
 } else {
 

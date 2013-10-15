@@ -1,4 +1,5 @@
 ﻿<?php
+error_reporting(E_ERROR | E_PARSE);
 include "conexao.inc.php";
 session_start();
 ?>
@@ -39,11 +40,18 @@ session_start();
         <input type="submit" name="acao" value="Ok"/>
       </form>
 </div> <br />
-<br />
 <form action="cadastra_cliente.php" method="post">
-<table width="500"  border="0" align="center">
+  <table width="500"  border="0" align="center">
   <tr>
     <td colspan="2" align="center"><h2><a href="clientes.php"  style="text-decoration:none;color:#FFF">Cadastrar Cliente</a> | <a href="lista_clientes.php"  style="text-decoration:none;color:#FFF">Ver Lista de Clientes</a></h2></td>
+    </tr>
+<?php /*?>  <tr>
+    <td colspan="2"><?php if($_GET['ok']=='1'){ echo "Ok"; } if ($_GET['ok']=='2'){ echo "Erro"; } ?></td>
+    </tr><?php */?>
+  <tr>
+    <td height="30" colspan="2" valign="top">
+	<center><?php if($_GET['msg']=="0"){ echo "<font color='#FFFFFF'>Cadastro realizado com sucesso.</font>";} ?>
+                  <?php if($_GET['msg']=="1"){ echo "<font color='#CC0000'>Este cliente já está cadastrado.</font>";} ?></center></td>
     </tr>
   <tr>
     <td width="161">Nome*:</td>

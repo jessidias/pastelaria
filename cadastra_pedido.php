@@ -1,8 +1,6 @@
 <?php
 
 
-// Restrição para apenas receber 
-	// valores pelo formulário
 	if(isset($_POST["acao"])) {
 		
 	$id_cliente = $_POST['id_cliente'];	
@@ -22,6 +20,10 @@ mysql_select_db("test", $con);
 
 if (empty($_POST['id_cliente']) ) { 
 echo"<script>alert ('Favor selecionar o cliente!')</script>"; 
+echo"<script>history.go(-1);</script>";
+}
+elseif (empty($_POST['id_produto']) ) { 
+echo"<script>alert ('Favor selecionar o produto!')</script>"; 
 echo"<script>history.go(-1);</script>";
 }
 elseif (empty($_POST['data_pedido']) ) { 
@@ -49,7 +51,7 @@ $insere2 = "INSERT INTO pedidos_item (id_pedido, id_produto, quantidade)
 	VALUES ('".$id_pedido."','".$id_produto."', '".$quantidade[$id_produto]."')";
 $insereB = mysql_query($insere2);
 
-	header("Location: pedidos.php");
+	header("Location: pedidos.php?msg=0");
 
 
 }
