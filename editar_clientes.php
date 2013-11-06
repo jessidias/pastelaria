@@ -46,75 +46,77 @@ $dados = mysql_fetch_array($query);
         <input type="submit" name="acao" value="Ok"/>
       </form>
       
-</div><br />
-<br />
+</div>
 
 <form action="editar_clientes2.php" method="post">
-<table width="500"  border="0" align="center">
+<table width="600"  border="0" align="center">
   <tr>
-    <td colspan="2" align="center"><h2>Cadastrar Cliente | <a href="lista_clientes.php"  style="text-decoration:none;color:#FFF">Ver Lista de Clientes</a></h2></td>
+    <td colspan="2" align="center" style="text-decoration:none;color:#FFF"><h2>Cadastrar Cliente | <a href="lista_clientes.php"  style="text-decoration:none;color:#FFF">Ver Lista de Clientes</a></h2></td>
     </tr>
   <tr>
     <td width="161">Nome*: </td>
     <td width="335">
-      <input name="nome_cliente" type="text" value="<?php echo $dados['nome_cliente']; ?>" /></td>
+      <input name="nome_cliente" type="text" style="border-radius:10px" value="<?php echo $dados['nome_cliente']; ?>" size="43"/></td>
     </tr>
   <tr>
     <td> CPF*:</td>
-    <td><input type="text" name="cpf" value="<?php echo $dados['cpf']; ?>" /></td>
+    <td><input name="cpf" type="text" style="border-radius:10px" value="<?php echo $dados['cpf']; ?>" size="43"/></td>
     </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>Apenas para cadastro de pessoa física.</td>
+    <td style="font-size:smaller">Apenas para cadastro de pessoa física.</td>
   </tr>
   <tr>
     <td>CNPJ*:</td>
-    <td><input type="text" name="cnpj" value="<?php echo $dados['cnpj']; ?>" /></td>
+    <td><input name="cnpj" type="text" style="border-radius:10px" value="<?php echo $dados['cnpj']; ?>" size="43"/></td>
     </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>Apenas para cadastro de pessoa jurídica.</td>
+    <td style="font-size:smaller">Apenas para cadastro de pessoa jurídica.</td>
   </tr>
   <tr>
     <td>Email:</td>
-    <td><input type="text" name="email" value="<?php echo $dados['email']; ?>" /></td>
+    <td><input name="email" type="text" style="border-radius:10px" value="<?php echo $dados['email']; ?>" size="43"/></td>
   </tr>
   <tr>
     <td>Endereço*:</td>
-    <td><input name="endereco" type="text" id="endereco" size="37" value="<?php echo $dados['endereco']; ?>" /></td>
-    </tr>
-  <tr>
-    <td>Número:</td>
-    <td><input name="numero" type="text" id="numero" size="1" value="<?php echo $dados['numero']; ?>" /></td>
+    <td><table width="100">
+      <tr>
+          <td><input name="endereco" type="text" id="endereco" value="<?php echo $dados['endereco'];?>" style="border-radius:10px"/></td>
+          <td>Número:*</td>
+          <td><input name="numero" type="text" id="numero" size="1" value="<?php echo $dados['numero']; ?>" style="border-radius:10px"/></td>
+        </tr>
+    </table></td>
     </tr>
   <tr>
     <td>Bairro:</td>
-    <td><input name="bairro" type="text" id="bairro" size="37" value="<?php echo $dados['bairro']; ?>" /></td>
-    </tr>
+    <td><input name="bairro" type="text" id="bairro" size="43" value="<?php echo $dados['bairro']; ?>" style="border-radius:10px"/></td>
+  </tr>
   <tr>
     <td>Complemento:</td>
-    <td><input name="complemento" type="text" id="complemento" size="37" value="<?php echo $dados['complemento']; ?>" /></td>
+    <td><input name="complemento" type="text" id="complemento" size="43" value="<?php echo $dados['complemento']; ?>" style="border-radius:10px"/></td>
     </tr>
   <tr>
     <td>Telefone Comercial*:</td>
-    <td><input type="text" name="telefone1" value="<?php echo $dados['telefone1']; ?>" /></td>
+    <td><input name="telefone1" type="text" style="border-radius:10px" value="<?php echo $dados['telefone1']; ?>" size="43"/></td>
   </tr>
   <tr>
     <td>Telefone Residencial:</td>
-    <td><input type="text" name="telefone2" value="<?php echo $dados['telefone2']; ?>" /></td>
+    <td><input name="telefone2" type="text" style="border-radius:10px" value="<?php echo $dados['telefone2']; ?>" size="43"></td>
   </tr>
   <tr>
     <td> Telefone Celular: </td>
-    <td><input type="text" name="telefone3" value="<?php echo $dados['telefone3']; ?>" /></td>
+    <td><input name="telefone3" type="text" style="border-radius:10px" value="<?php echo $dados['telefone3']; ?>" size="43" /></td>
   </tr>
   <tr>
-    <td align="right">* campos obrigatórios</td>
+    <td align="left" style="font-size:smaller">* campos obrigatórios</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td align="right">&nbsp;</td>
-    <td><input type="submit" name="acao" value="Editar Cliente" />
-      <input name="id_cliente" type="hidden" value="<?php echo $dados["id_cliente"]; ?>" /></td>
+    <td><input type="submit" name="acao" value="Editar Cliente" style="font-size:20px"/>
+      
+<input name="id_cliente" type="hidden" value="<?php echo $dados["id_cliente"]; ?>" /></td>
   </tr>
   </table>
 </form>

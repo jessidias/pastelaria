@@ -12,7 +12,7 @@ $data_pedido =  $row['data_pedido'];
 $data_entrega =  $row['data_entrega'];
 $valor_total =  $row['valor_total'];
 $valor_pago =  $row['valor_pago'];
-
+$obs =  $row['obs'];
 $nome_cliente = $row['nome_cliente'];
 
 //DETALHES DO PEDIDO
@@ -64,13 +64,13 @@ $sqlP_res = mysql_query($sqlP) or die ('ERRO: pesquisar detalhes do pedido');
 
 <form action="editar_pedidos2.php" method="post">
 
-<table width="50%" border='0' align="center">
+<table width="60%" border='0' align="center">
 			<tr>
 			  <td colspan="2" align="center"><h2><a href="pedidos.php" style="text-decoration:none;color:#FFF">Cadastrar Pedido </a>| <a href="lista_pedidos.php"  style="text-decoration:none;color:#FFF">Ver Lista de Pedidos</a></h2></td>
 		    </tr>
 			<tr>
-				<td width="84">Cliente:</td>
-    		    <td width="335"><?php echo $nome_cliente; ?></td>
+				<td width="201">Cliente:</td>
+    		    <td width="384"><?php echo $nome_cliente; ?></td>
             </tr>
           
 			<tr>
@@ -83,19 +83,17 @@ $sqlP_res = mysql_query($sqlP) or die ('ERRO: pesquisar detalhes do pedido');
 				$id_pedido = $rowP['id_pedido'];
 				$id_produto = $rowP['id_produto'];
 				$nome_produto = $rowP['nome_produto'];
-				$valor_unitario = $rowP['valor_unitario'];
 			    $quantidade = $rowP['quantidade'];
-				//$valor_total = $quantidade*$valor_unitario;
-				
+			
 			    ?>
      
       <tr>
       
-        <td width="182"><input type="checkbox" name="id_produto[]" value="<?php echo $id_produto; ?>"/><?php echo $nome_produto; ?></td>
-        <td width="171" align="right">Quantidade: 
+        <td width="148"><input type="checkbox" name="id_produto[]" value="<?php echo $id_produto; ?>"/><?php echo $nome_produto; ?></td>
+        <td width="211" align="right">Quantidade: 
           <input name="quantidade[<?php echo $id_produto; ?>]" type="text" size="5" value="<?php echo $quantidade; ?>" />
         </td>
-        <td width="10"></td>
+        <td width="11"></td>
           
       </tr>
     <?php } ?>
@@ -104,8 +102,12 @@ $sqlP_res = mysql_query($sqlP) or die ('ERRO: pesquisar detalhes do pedido');
             </tr>
 			<tr>
 			  <td>Valor Total: </td>
-			  <td>R$ <input name="valor_unitario" type="text" size="5" value="<?php echo $valor_total; ?>"></td>
+			  <td>R$ <input name="valor_total" type="text" size="5" value="<?php echo $valor_total; ?>"></td>
 			  </tr> 
+			<tr>
+			  <td>Observações do Pedido:</td>
+			  <td><?php echo $obs; ?></td>
+			  </tr>
 			<tr>
 			  <td>&nbsp;</td>
 			  <td><input type="submit" name="acao" value="Editar Pedido" />

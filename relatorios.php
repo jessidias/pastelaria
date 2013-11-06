@@ -1,6 +1,10 @@
 ﻿<?php
 include "conexao.inc.php";
 session_start();
+
+$hoje=date("d/m/Y");
+$semana=date('d/m/Y', strtotime("-8 day"));
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,6 +14,31 @@ session_start();
 <style type="text/css" media="all">
 			@import "css/estilos.css";		
 			</style>
+            
+		<link href="_style/jquery.click-calendario-1.0.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="_scripts/jquery.js"></script>
+		<script type="text/javascript" src="_scripts/jquery.click-calendario-1.0-min.js"></script>		
+		<script type="text/javascript" src="_scripts/exemplo-calendario.js"></script>
+
+  <script>
+$('#data_1').focus(function(){
+    $(this).calendario({
+        target:'data_1',
+        closeClick:false,
+		    });
+});
+
+
+$('#data_2').focus(function(){
+    $(this).calendario({
+        target:'data_2',
+        closeClick:false
+		
+    });
+});
+
+</script>
+
 </head>
 
 <body>
@@ -25,14 +54,14 @@ session_start();
           <table width="998" border="0">
   <tr>
     <td><div style="padding-left:250px;padding-top:10px">
-      <table width="500" border="0">
+      <table width="700" border="0">
         
         <tr><form method="post" action="rel_periodo.php">
-          <td width="249">Visualizar relatório por período:</td>
-          <td width="146"><input name="periodo1" type="text" id="periodo1" size="5" />
+          <td width="247">Visualizar relatório por período:</td>
+          <td width="173"><input name="data_1" type="text" id="data_1" size="8" />
             a 
-            <input name="periodo2" type="text" id="periodo2" size="5" /></td>
-          <td width="91"><input type="submit" name="acao" value="Pesquisar" /></td>
+            <input name="data_2" type="text" id="data_2" size="8" /></td>
+          <td width="166"><input type="submit" name="acao" value="Pesquisar" /></td>
            </form></tr>
          
         <tr><form method="post" action="rel_mensal.php">
@@ -57,53 +86,61 @@ session_start();
           <td>Visualizar relatório anual:</td>
           <form method="post" action="rel_anual.php"><td>
           <select name="ano">
-            <option value="2013" selected="selected">2013</option>
-            <option value="2012">2012</option>            
+            <option value="2013">2013</option>
+                    
           </select>
           </td>
           <td><input type="submit" name="acao3" value="Pesquisar" /></td>
           </form>
           </tr>
       </table>
-      <br />
-      <strong>Você escolheu a opção &quot;Visualizar Relatório anual 2012&quot;</strong>
       
-    </div>
-      <br />
-      <table width="500" border="0" align="center">
-        <tr>
-        <td align="left"><strong>Produtos mais vendidos</strong></td>
-      </tr>
-      <tr>
-        <td align="left">Pastel de Carne</td>
-      </tr>
-      <tr>
-        <td align="left">Pastel de Queijo</td>
-      </tr>
-      <tr>
-        <td align="left">Pastel de Frango</td>
-      </tr>
-  </table>
-      <br />
-      <!--<table width="500" border="0" align="center">
-        <tr>
-          <td align="left"><strong> Mês com maior número de vendas</strong></td>
-        </tr>
-        <tr>
-          <td align="left">Março</td>
-        </tr>
-        <tr>
-          <td align="left">Abril</td>
-        </tr>
-        <tr>
-          <td align="left">Agosto</td>
-        </tr>
-    </table>-->
-      <br /></td>
+   
+           <?php 
+	 
+	$query = "SELECT nome_produto, SUM( quantidade ) AS quant
+FROM pedidos_item
+INNER JOIN pedidos ON pedidos_item.id_pedido = pedidos.id_pedidos
+INNER JOIN produtos ON pedidos_item.id_produto = produtos.id_produto
+WHERE data_entrega BETWEEN '$hoje' and '$semana'
+GROUP BY produtos.id_produto
+ORDER BY quant DESC";
+$result = mysql_query($query) or die(mysql_error());
+
+$queryT = "SELECT SUM( quantidade ) AS total
+FROM pedidos_item
+INNER JOIN pedidos ON pedidos_item.id_pedido = pedidos.id_pedidos
+INNER JOIN produtos ON pedidos_item.id_produto = produtos.id_produto
+WHERE data_entrega BETWEEN '$hoje' and '$semana'";
+$resultT = mysql_query($queryT) or die(mysql_error()); 
+
+$sqlT = "SELECT SUM( valor_pago ) AS totala
+FROM pedidos
+WHERE data_entrega BETWEEN '$hoje' and '$semana'";
+$sql_resT = mysql_query($sqlT) or die(mysql_error());
+
+
+	echo "<h3>Relatório Semanal - $semana a $hoje</h3>";
+	while($row = mysql_fetch_array($result)){
+	echo "Total ". $row['nome_produto']. " = ". $row['quant'];
+	echo "<br />";
+	}
+	
+	while($rowT = mysql_fetch_array($resultT)){
+	echo "Total de Pastéis Vendidos = ". $rowT['total'];
+	echo "<br />";
+	}
+	
+	while($rowTo = mysql_fetch_array($sql_resT)){
+	echo "Faturamento Bruto = R$ ". number_format($rowTo['totala'],2). ""; 
+	}
+
+?>
+</td>
   </tr>
 </table>
 
-          </div> 
+           </div>
                 
 				<div id="rodape"><?php include("rodape.php");?></div>
 				

@@ -8,7 +8,7 @@
 	$id_pedidos_item = $_POST['id_pedidos_item'];
 	$quantidade = $_POST['quantidade'];	
 	$id_produto = $_POST['id_produto'];
-	
+
 
 $con = mysql_connect("localhost", "test", "") or
    die('Não foi possível conectar');
@@ -29,8 +29,7 @@ $insereB = mysql_query($insere2);
 
 }
 
-// Restrição para apenas receber 
-	// valores pelo formulário
+	//DELTAR PEDIDO
 	if(isset($_POST["acao3"])) {
 		
 		

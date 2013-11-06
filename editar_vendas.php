@@ -63,7 +63,7 @@ $sqlP_res = mysql_query($sqlP) or die ('ERRO: pesquisar detalhes do pedido');
       </form></div><br />
 
 <form action="editar_vendas2.php" method="post">
-<table width="50%" border='0' align="center" style="padding-left:50px">
+<table width="600" border='0' align="center" style="padding-left:50px">
 			<tr>
 			  <td colspan="2" align="center"><h2><a href="vendas.php" style="text-decoration:none;color:#FFF">Fechar Pedidos </a>| <a href="lista_vendas.php"  style="text-decoration:none;color:#FFF">Ver Lista de Vendas</a></h2></td>
 		    </tr>
@@ -73,23 +73,23 @@ $sqlP_res = mysql_query($sqlP) or die ('ERRO: pesquisar detalhes do pedido');
             </tr>
              <tr>
 			  <td height="24">Data do Pedido: </td>
-			  <td height="24"><input name="data_pedido" type="text" value="<?php echo $data_pedido; ?>"?></td>
+			  <td height="24"><?php echo $data_pedido; ?></td>
 			  </tr> 
                <tr>
 			  <td height="24">Data da Entrega: </td>
-		  <td height="24"><input name="data_entrega" type="text" value="<?php echo $data_entrega; ?>"?></td>
+		  <td height="24"><?php echo $data_entrega; ?></td>
 			  </tr> 
               <tr>
 			  <td height="24">Valor Pago: </td>
-			  <td height="24">R$ <input name="valor_pago" type="text" value="<?php echo $valor_pago; ?>" size="16" ?></td>
+			  <td height="24">R$ <?php echo $valor_pago; ?></td>
 			  </tr> 
             <tr>
 			  <td height="24">Valor Total: </td>
-			  <td height="24">R$ <input name="valor_total" type="text" value="<?php echo $valor_total; ?>" size="16" ?></td>
+			  <td height="24">R$ <?php echo $valor_total; ?></td>
 			  </tr> 
 			<tr>
 			  <td height="24">&nbsp;</td>
-			  <td height="24"><input type="submit" name="acao" value="Editar Venda" />
+			  <td height="24">
           <input name="id_pedidos" type="hidden" value="<?php echo $id_pedidos; ?>" />
                <input type="submit" name="acao3" value="Excluir Venda" />
               </td>

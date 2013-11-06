@@ -39,6 +39,7 @@ $busca_query = mysql_query("SELECT * FROM clientes WHERE cnpj LIKE '%$busca%'");
 <style type="text/css" media="all">
 			@import "css/estilos.css";		
 			</style>
+            
 </head>
 
 <body>
@@ -54,31 +55,34 @@ $busca_query = mysql_query("SELECT * FROM clientes WHERE cnpj LIKE '%$busca%'");
           <table width="998" border="0">
   <tr>
     <td>
-    <div style="padding-left:250px;padding-top:10px">
-    <!-- <form action="pesquisa_clientes.php" method="post">
+    <div style="padding-left:230px;padding-top:10px">
+    <form action="pesquisa_clientes.php" method="post">
       Buscar clientes:
-      <input name="palavra" type="text" value="Digite aqui para pesquisar..." size="45" />
-     
-    
+<input name="palavra" type="text" value="Digite aqui para pesquisar..." size="45" />
       <select name="categoria">
-			<option value="nome">Nome</option>
-			<option value="cpf">CPF</option>
-			<option value="cnpj">CNPJ</option>
-		</select>
-        <input type="submit" name="acao" value="Ok"/>
-      </form>-->
+        <option value="nome">Nome</option>
+        <option value="cpf">CPF</option>
+        <option value="cnpj">CNPJ</option>
+      </select>
+      <input type="submit" name="acao" value="Ok"/>
+    </form>
+  </div>
+    <div style="padding-left:250px;padding-top:10px">
+
        <h2> Resultados da pesquisa por "<?php echo $busca; ?>"</h2>
-</div> <br />
-<br />
+</div> 
 
 <table width="500"  border="0" align="center">
   <tr >
   <div style="padding-left:250px; padding-right:300px">
    <?php
     while ($dados = mysql_fetch_array($busca_query)) {
-    echo "Nome: $dados[nome_cliente]<br />";
+    echo "Nome: <a href='editar_clientes.php?id_cliente=$dados[id_cliente]'  style='text-decoration:none; color:#000066'>$dados[nome_cliente]</a><br />";
+	if ($dados['cpf'] != ""){
 	echo "CPF: $dados[cpf]<br />";
+	} else {
 	echo "CNPJ: $dados[cnpj]<br />";
+	}
 	echo "Email: $dados[email]<br />";
 	echo "Telefone Comercial: $dados[telefone1]<br />";
 	echo "Telefone Residencial: $dados[telefone2]<br />";

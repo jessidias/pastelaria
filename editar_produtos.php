@@ -46,26 +46,24 @@ $dados = mysql_fetch_array($query);
         <input type="submit" name="acao" value="Ok"/>
       </form>
       
-</div><br />
-<br />
-
+</div>
 <form action="editar_produtos2.php" method="post">
-<table width="500"  border="0" align="center">
+<table width="600"  border="0" align="center">
   <tr>
     <td colspan="2" align="center"><h2><a href="produtos.php"  style="text-decoration:none;color:#FFF">Cadastrar Produto</a> | <a href="lista_produtos.php"  style="text-decoration:none;color:#FFF">Ver Lista de Produtos</a></h2></td>
     </tr>
   <tr>
-    <td width="161">Produto*: </td>
-    <td width="335">
+    <td width="280" style="padding-left:50px">Produto*: </td>
+    <td width="310">
       <input name="nome_produto" type="text" value="<?php echo $dados['nome_produto']; ?>" /></td>
     </tr>
   <tr>
-    <td> Preço (R$)*:</td>
+    <td style="padding-left:50px"> Preço (R$)*:</td>
     <td><input type="text" name="valor_unitario" value="<?php echo $dados['valor_unitario']; ?>" /></td>
     </tr>
   <tr>
     <td align="right">&nbsp;</td>
-    <td><input type="submit" name="acao" value="Editar Produto" />
+    <td><input type="submit" name="acao" value="Editar Produto" style="font-size:20px" />
       <input name="id_produto" type="hidden" value="<?php echo $dados["id_produto"]; ?>" /></td>
   </tr>
   </table>

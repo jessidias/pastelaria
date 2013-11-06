@@ -16,7 +16,30 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
 <style type="text/css" media="all">
 			@import "css/estilos.css";		
 			</style>
-            
+
+		<link href="_style/jquery.click-calendario-1.0.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="_scripts/jquery.js"></script>
+		<script type="text/javascript" src="_scripts/jquery.click-calendario-1.0-min.js"></script>		
+		<script type="text/javascript" src="_scripts/exemplo-calendario.js"></script>
+
+  <script>
+$('#data_1').focus(function(){
+    $(this).calendario({
+        target:'data_1',
+        closeClick:false,
+		    });
+});
+
+
+$('#data_2').focus(function(){
+    $(this).calendario({
+        target:'data_2',
+        closeClick:false
+		
+    });
+});
+
+</script>
 
 </head>
 
@@ -46,14 +69,14 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
 		</select>
         <input type="submit" name="acao2" value="Ok"/>
       </form>
-</div> <br />
+</div> 
 <form action="cadastra_pedido.php" method="post">
-  <table width="700"  border="0" align="center">
+  <table width="800"  border="0" align="center">
   <tr>
     <td colspan="2" align="center"><h2><a href="pedidos.php"  style="text-decoration:none;color:#FFF">Cadastrar Pedido</a> | <a href="lista_pedidos.php" style="text-decoration:none;color:#FFF">Ver Lista de Pedidos</a></h2></td>
     </tr>
   <tr>
-    <td height="30" colspan="2" align="center">
+    <td colspan="2" align="center">
 	<?php if($_GET['msg']=="0"){ echo "<font color='#FFFFFF'>Pedido realizado com sucesso.</font>";} ?>
      </td>
     </tr>
@@ -75,7 +98,6 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
             </select></td>
     </tr>
     
-<!--<form method="post" action="">-->
   <tr>
    <?php $select = mysql_query("SELECT * FROM produtos");?>
     <td valign="top">Produtos:</td>
@@ -92,13 +114,14 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
      
       <tr>
       
-        <td width="168"><input type="checkbox" name="id_produto[]" value="<?php echo $id_produto; ?>"/>
+        <td width="192"><input type="checkbox" name="id_produto[]" value="<?php echo $id_produto; ?>"/>
           <?php echo $nome_produto; ?></td>
-        <td width="159" align="right">Quantidade: 
+        <td width="157" align="right">Quantidade: 
           <input name="quantidade[<?php echo $id_produto; ?>]" type="text" size="2" />
          
           </td>
-          <td width="173">Valor Unitário:
+          <td width="226">Valor Unitário:
+            R$
             <input name="valor_unitario[]" id="valor_unitario[]" type="text" size="4" value="<?php echo $valor_unitario; ?>" /></td>
           
       </tr>
@@ -116,11 +139,12 @@ $data_entrega=date('d/m/Y', strtotime("+1 day"));
    <!-- </form>-->
   <tr>
     <td>Data do pedido:</td>
-    <td><input name="data_pedido" type="text" id="data_pedido" value="<?php echo $data_pedido;?>" /></td>
+    <td><input type="text" name="data_1" id="data_1" maxlength="10"/></td>
     </tr>
+
   <tr>
     <td>Data da entrega:</td>
-    <td><input name="data_entrega" type="text" id="data_entrega" value="<?php echo $data_entrega;?>" /></td>
+    <td><input type="text" name="data_2" id="data_2" maxlength="10"/></td>
     </tr>
   <tr>
     <td align="left">Observações do pedido:</td>

@@ -38,7 +38,7 @@ session_start();
         <input type="submit" name="acao" value="Ok"/>
       </form>
 </div><br />
-<table width="500" border="0" align="center">
+<table width="600" border="0" align="center">
   <tr>
     <td colspan="3" align="center"><h2><a href="produtos.php" style="text-decoration:none;color:#FFF">Cadastrar Produto</a> | <a href="lista_produtos.php" style="text-decoration:none;color:#FFF">Ver Lista de Produtos</a></h2></td>
   </tr>
@@ -48,19 +48,20 @@ session_start();
                   <?php if($_GET['msg']=="1"){ echo "<font color='#CC0000'>Este produto já está cadastrado.</font>";} ?></td>
     </tr>
   <tr>
-    <td width="222" align="center">Produto*: </td>
-    <td width="268" colspan="2" align="left">
-      <input type="text" name="nome_produto" id="nome_produto" /></td>
+    <td width="214" align="right">Produto*: </td>
+    <td width="376" colspan="2" align="left">
+      <input name="nome_produto" type="text" id="nome_produto" size="43" /></td>
   </tr>
   <tr>
-    <td align="center">Preço (R$)*:</td>
-    <td colspan="2" align="left"><input name="valor_unitario" type="text" id="valor_unitario" /></td>
+    <td align="right">Preço (R$)*:</td>
+    <td colspan="2" align="left"><input name="valor_unitario" type="text" id="valor_unitario" size="43" /></td>
   </tr>
   <tr>
-    <td colspan="3" align="left" style="">*campos obrigatórios</td>
-    </tr>
+    <td align="right"><span style="font-size:smaller">*campos obrigatórios</span></td>
+    <td colspan="2" align="left">&nbsp;</td>
+  </tr>
   <tr>
-    <td colspan="3" align="center" style="padding-left:130px"><input type="submit" name="acao" id="acao" value="Enviar" /> <input type="reset" name="acao" id="acao" value="Limpar" /></td>
+    <td colspan="3" align="center" style="padding-left:130px"><input type="submit" name="acao" id="acao" value="Enviar" style="font-size:20px"/> <input type="reset" name="acao" id="acao" value="Limpar" style="font-size:20px"/></td>
   </tr>
   </form>
       </table></td>

@@ -41,19 +41,19 @@ $query2 = mysql_query("SELECT a.nome_cliente, b.id_cliente, b.data_pedido, b.val
       <input type="submit" name="acao2" value="Ok"/>
     </form>
     </div>
-      <br />
-      <table width="600" border='0' align="center">
+    
+      <table width="600" border='0' align="center" style="padding-left:60px">
         <tr>
-          <td colspan="6" align="center"><h2><a href="vendas.php" style="text-decoration:none;color:#FFF">Fechar Pedidos </a>| <a href="lista_vendas.php"  style="text-decoration:none;color:#FFF">Ver Lista de Vendas</a></h2></td>
+          <td colspan="5" align="center"><h2><a href="vendas.php" style="text-decoration:none;color:#FFF">Finalizar Venda </a>| <a href="lista_vendas.php"  style="text-decoration:none;color:#FFF">Ver Lista de Vendas</a></h2></td>
         </tr>
         <tr>
-          <td height="30" colspan="5" align="center"><?php if($_GET['msg']=="0"){ echo "<font color='#FFFFFF'>Venda realizada com sucesso.</font>";} ?></td>
+          <td colspan="4">
+		 <center> <?php if($_GET['msg']=="0"){ echo "<font color='#FFFFFF'>Venda finalizada com sucesso.</font>";} ?></center></td>
           </tr>
         <tr>
           <td align="left">Cliente</td>
           <td align="left">Data do pedido</td>
           <td align="left">Valor Total </td>
-          <td align="left">Valor Pago</td>
           <td align="center">&nbsp;</td>
           
         </tr>
@@ -65,27 +65,22 @@ $query2 = mysql_query("SELECT a.nome_cliente, b.id_cliente, b.data_pedido, b.val
           <td><?php echo $dados['data_pedido']; ?></td>
           <td>R$  <?php echo $dados['valor_total']; ?></td>
               <form method="post" action="cadastra_venda.php">
-          <td>
-            R$ 
-            <input name="valor_pago" type="text" id="valor_pago" value="<?php echo $dados['valor_pago']; ?>" size="10" />
-          </td>
-          <td><input name="acao" type="submit" value="Enviar" />
-          <input name="id_pedidos" type="hidden" value="<?php echo $dados["id_pedidos"]; ?>" /></td>
+          <td><input name="acao" type="submit" value="Finalizar Venda" />
+            <input name="id_pedidos" type="hidden" value="<?php echo $dados["id_pedidos"]; ?>" />
+            <input name="valor_total" type="hidden" value="<?php echo $dados["valor_total"]; ?>" /></td>
          </form>
           </tr>
             <?php } ?>
        
       </table>
-      <br />
-
-<br /></td>
+      </td>
   </tr>
 </table>
 
           </div> 
                 
-				<div id="rodape"><?php include("rodape.php");?></div>
+		<div id="rodape"><?php include("rodape.php");?></div>
 				
-			</div>
+	</div>
 </body>
 </html>

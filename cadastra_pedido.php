@@ -4,8 +4,8 @@
 	if(isset($_POST["acao"])) {
 		
 	$id_cliente = $_POST['id_cliente'];	
-	$data_pedido = $_POST['data_pedido'];
-	$data_entrega = $_POST['data_entrega'];
+	$data_1 = $_POST['data_1'];
+	$data_2 = $_POST['data_2'];
 	$valor_total = $_POST['valor_total'];
 	$obs = $_POST['obs'];
 
@@ -26,18 +26,35 @@ elseif (empty($_POST['id_produto']) ) {
 echo"<script>alert ('Favor selecionar o produto!')</script>"; 
 echo"<script>history.go(-1);</script>";
 }
-elseif (empty($_POST['data_pedido']) ) { 
+/*elseif (empty($_POST['$quantidade']) ) { 
+echo"<script>alert ('Favor selecionar a quantidade!')</script>"; 
+echo"<script>history.go(-1);</script>";
+}*/
+elseif (empty($_POST['data_1']) ) { 
 echo"<script>alert ('Favor colocar a data em que o pedido foi realizado!')</script>"; 
 echo"<script>history.go(-1);</script>";
 }
-elseif (empty($_POST['data_entrega']) ) { 
+elseif (empty($_POST['data_2']) ) { 
 echo"<script>alert ('Favor colocar a data em que o pedido será entregue!')</script>"; 
 echo"<script>history.go(-1);</script>";
 }
 else {
 
+$sqlD = "SELECT ( planejamento.quant ) - sum( quantidade ) AS sub
+FROM pedidos_item
+INNER JOIN pedidos ON pedidos_item.id_pedido = pedidos.id_pedidos
+INNER JOIN planejamento
+WHERE data_entrega LIKE  '%$amanha%'
+AND data LIKE  '%$hoje%'";
+$sqlD_res = mysql_query($sqlD) or die ('ERRO: pesquisar sub');
+
+if ($sub > $quantidade[$id_produto]){
+	echo "Não pode inserir"; }
+	else {
+
+
 $insere1 = "INSERT INTO pedidos (id_cliente, data_pedido, data_entrega, valor_total, obs) 
-	VALUES ('".$id_cliente."', '".$data_pedido."', '".$data_entrega."', '".$valor_total."', '".$obs."')";
+	VALUES ('".$id_cliente."', '".$data_1."', '".$data_2."', '".$valor_total."', '".$obs."')";
 $insereA = mysql_query($insere1);
 
 
@@ -53,7 +70,7 @@ $insereB = mysql_query($insere2);
 
 	header("Location: pedidos.php?msg=0");
 
-
+}
 }
 }
 }else {

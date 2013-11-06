@@ -31,23 +31,7 @@ $dados = mysql_fetch_array($query);
               
           <table width="998" border="0">
   <tr>
-    <td>
-    <div style="padding-left:250px;padding-top:10px">
-      <form action="pesquisa_clientes.php" method="post">
-      Buscar clientes:
-        <input name="palavra" type="text" value="Digite aqui para pesquisar..." size="45" />
-     
-    
-      <select name="categoria">
-			<option value="nome">Nome</option>
-			<option value="cpf">CPF</option>
-			<option value="cnpj">CNPJ</option>
-		</select>
-        <input type="submit" name="acao" value="Ok"/>
-      </form>
-      
-</div><br />
-<br />
+    <td><br />
 
 <form action="editar_planejamento2.php" method="post">
 <table width="500"  border="0" align="center">

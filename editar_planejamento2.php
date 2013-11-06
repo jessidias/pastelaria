@@ -7,15 +7,15 @@
 	
 	$id = $_POST["id"];	
 	$quant = $_POST['quant'];	
-	$dia = $_POST['dia'];	
 	$data = $_POST['data'];	
+	$dia = $_POST['dia'];
 		
 
 $con = mysql_connect("localhost", "test", "") or
    die('Não foi possível conectar');
 
 mysql_select_db("test", $con);
-mysql_query("UPDATE planejamento SET quant = '$quant', dia = '$dia', data = '$data' WHERE id = '$id'");
+mysql_query("UPDATE planejamento SET quant = '$quant', data = '$data', dia = '$dia' WHERE id = '$id'");
 
 	header("Location: lista_planejamento.php");
 

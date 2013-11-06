@@ -46,8 +46,9 @@ $busca_query = mysql_query("SELECT * FROM produtos WHERE nome_produto LIKE '%$bu
           <table width="998" border="0">
   <tr>
     <td>
-    <div style="padding-left:250px;padding-top:10px"> 
-     <!--<form action="pesquisa_produtos.php" method="post">
+    
+   <div style="padding-left:250px;padding-top:10px">
+      <form action="pesquisa_produtos.php" method="post">
       Buscar produtos:
       <input name="palavra" type="text" value="Digite aqui para pesquisar..." size="45" />
      
@@ -57,17 +58,18 @@ $busca_query = mysql_query("SELECT * FROM produtos WHERE nome_produto LIKE '%$bu
 			
 		</select>
         <input type="submit" name="acao" value="Ok"/>
-      </form>-->
-       <h2> Resultados da pesquisa por "<?php echo $busca; ?>"</h2>
-</div> <br />
-<br />
+      </form>
+      
 
+       <h2> Resultados da pesquisa por "<?php echo $busca; ?>"</h2>
+       </div>
+ 
 <table width="500"  border="0" align="center">
   <tr >
   <div style="padding-left:250px; padding-right:300px">
    <?php
     while ($dados = mysql_fetch_array($busca_query)) {
-    echo "Nome: $dados[nome_produto]<br />";
+    echo "Produto: <a href='editar_produtos.php?id_produto=$dados[id_produto]' style='text-decoration:none;color:#000066'>$dados[nome_produto]</a><br />";
 	echo "Valor unitário: $dados[valor_unitario]<br />";
 	
     echo "<hr>";
